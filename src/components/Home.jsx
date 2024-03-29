@@ -82,20 +82,22 @@ const Home = () => {
 
         <div>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fermentum
-            ullamcorper libero, eu laoreet ligula iaculis sit amet. Proin euismod
-            malesuada nisi, et convallis mauris faucibus et. Cras laoreet risus velit, eu
-            sollicitudin est pharetra dapibus. Proin justo odio, finibus id quam eu,
-            rutrum sagittis massa. Donec eu turpis massa. Proin in est eu enim semper
-            cursus in eget dui. Aliquam tempor, dolor venenatis facilisis feugiat, justo
-            ante dapibus nunc, a hendrerit urna mi in ex. Etiam eget molestie diam, eu
-            auctor leo. Suspendisse id odio quis est tincidunt vulputate et ac ligula.
-            Fusce non est malesuada, egestas mi id, tristique erat. Ut pulvinar
-            condimentum dui a congue. In hac habitasse platea dictumst. Ut ac varius ex.
-            Integer efficitur eu ligula sit amet pretium. Nam eget sem convallis, eleifend
-            erat vel, dapibus diam. Sed ullamcorper ac elit consequat pretium. Sed
-            placerat suscipit nunc in sodales. Etiam interdum dapibus dui eu tincidunt.
-            Phasellus enim mauris, pellentesque et diam non, maximus auctor eros. In risus
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce
+            fermentum ullamcorper libero, eu laoreet ligula iaculis sit amet.
+            Proin euismod malesuada nisi, et convallis mauris faucibus et. Cras
+            laoreet risus velit, eu sollicitudin est pharetra dapibus. Proin
+            justo odio, finibus id quam eu, rutrum sagittis massa. Donec eu
+            turpis massa. Proin in est eu enim semper cursus in eget dui.
+            Aliquam tempor, dolor venenatis facilisis feugiat, justo ante
+            dapibus nunc, a hendrerit urna mi in ex. Etiam eget molestie diam,
+            eu auctor leo. Suspendisse id odio quis est tincidunt vulputate et
+            ac ligula. Fusce non est malesuada, egestas mi id, tristique erat.
+            Ut pulvinar condimentum dui a congue. In hac habitasse platea
+            dictumst. Ut ac varius ex. Integer efficitur eu ligula sit amet
+            pretium. Nam eget sem convallis, eleifend erat vel, dapibus diam.
+            Sed ullamcorper ac elit consequat pretium. Sed placerat suscipit
+            nunc in sodales. Etiam interdum dapibus dui eu tincidunt. Phasellus
+            enim mauris, pellentesque et diam non, maximus auctor eros. In risus
             tellus, consectetur eu porta quis, elementum sed justo.
           </p>
         </div>
