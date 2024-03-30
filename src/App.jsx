@@ -5,6 +5,7 @@ import Store from "./components/Store/MainStore";
 import Cart from "./components/Cart/Cart";
 import SingleProduct from "./components/Store/SingleProduct";
 import { useCart } from "./components/Cart/CartContext";
+import Footer from "./components/Footer";
 
 function App() {
   const { isCartActive, toggleCart } = useCart();
@@ -29,6 +30,8 @@ function App() {
         </Route>
         <Route path="/product/:id" element={<SingleProduct />} />
       </Routes>
+
+      <Footer />
     </>
   );
 }
