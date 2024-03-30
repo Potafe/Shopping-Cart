@@ -15,7 +15,7 @@ function CartProvider({ children, initialItems }) {
   const handleAddItemToCart = (newItem) => {
     let isItemInCart = false;
     const modifiedData = items.map((item) => {
-      if (item.id === newItem.id) {
+      if (item.sku === newItem.sku) {
         isItemInCart = true;
         item.quantity += 1;
       }
@@ -29,17 +29,17 @@ function CartProvider({ children, initialItems }) {
     }
   };
 
-  const handleRemoveItemFromCart = (id) =>
-    setItems(items.filter((item) => item.id !== id));
+  const handleRemoveItemFromCart = (sku) =>
+    setItems(items.filter((item) => item.sku !== sku));
 
-  const handleAdjustItemQuant = (id, quant, action) => {
+  const handleAdjustItemQuant = (sku, quant, action) => {
     if (quant === 1 && action === "decrement") {
-      handleRemoveItemFromCart(id);
+      handleRemoveItemFromCart(sku);
       return;
     }
 
     const updateData = items.map((item) => {
-      if (item.id === id) item.quantity += action === "increment" ? 1 : -1;
+      if (item.sku === sku) item.quantity += action === "increment" ? 1 : -1;
       return item;
     });
 
