@@ -9,7 +9,7 @@ describe("Cart", () => {
     render(
       <CartProvider>
         <Cart />
-      </CartProvider>
+      </CartProvider>,
     );
 
     expect(screen.getByText(/Cart/i));
@@ -21,7 +21,7 @@ describe("Cart", () => {
     render(
       <CartProvider>
         <Cart />
-      </CartProvider>
+      </CartProvider>,
     );
     const cart = screen.getByTestId("cart");
     const closeBtn = screen.getByRole("button", { name: /close/i });
@@ -37,7 +37,7 @@ describe("Cart", () => {
     render(
       <CartProvider>
         <Cart />
-      </CartProvider>
+      </CartProvider>,
     );
 
     expect(screen.getByText(/subtotal/i));
@@ -47,7 +47,7 @@ describe("Cart", () => {
     render(
       <CartProvider>
         <Cart />
-      </CartProvider>
+      </CartProvider>,
     );
 
     expect(screen.getByTestId("subtotal").textContent).toMatch(/0/);
@@ -63,7 +63,7 @@ describe("Cart", () => {
     render(
       <CartProvider initialItems={mockData}>
         <Cart />
-      </CartProvider>
+      </CartProvider>,
     );
 
     expect(screen.getByTestId("subtotal").textContent).toMatch(/557.99/);
@@ -73,7 +73,7 @@ describe("Cart", () => {
     render(
       <CartProvider>
         <Cart />
-      </CartProvider>
+      </CartProvider>,
     );
 
     expect(screen.getByRole("link", { name: /checkout/i }));
@@ -91,7 +91,7 @@ describe("Cart Items", () => {
     render(
       <CartProvider initialItems={mockData}>
         <Cart />
-      </CartProvider>
+      </CartProvider>,
     );
 
     const items = screen.getAllByTestId("itemTitle");
@@ -111,7 +111,7 @@ describe("Cart Items", () => {
     render(
       <CartProvider initialItems={mockData}>
         <Cart />
-      </CartProvider>
+      </CartProvider>,
     );
 
     expect(screen.getByText(/345/));
@@ -130,9 +130,11 @@ describe("Cart Items", () => {
     render(
       <CartProvider initialItems={mockData}>
         <Cart />
-      </CartProvider>
+      </CartProvider>,
     );
-    const removeItemBtns = screen.getAllByRole("button", { name: /remove item/i });
+    const removeItemBtns = screen.getAllByRole("button", {
+      name: /remove item/i,
+    });
     await user.click(removeItemBtns[0]);
 
     expect(screen.getAllByRole("listitem")).toHaveLength(2);
@@ -149,11 +151,15 @@ describe("Cart Items", () => {
     render(
       <CartProvider initialItems={mockData}>
         <Cart />
-      </CartProvider>
+      </CartProvider>,
     );
 
-    expect(screen.getAllByRole("button", { name: /decrement/i })).toHaveLength(3);
-    expect(screen.getAllByRole("button", { name: /increment/i })).toHaveLength(3);
+    expect(screen.getAllByRole("button", { name: /decrement/i })).toHaveLength(
+      3,
+    );
+    expect(screen.getAllByRole("button", { name: /increment/i })).toHaveLength(
+      3,
+    );
   });
 
   it("decrements the item quantity when the 'decrement' button is clicked", async () => {
@@ -163,7 +169,7 @@ describe("Cart Items", () => {
     render(
       <CartProvider initialItems={mockData}>
         <Cart />
-      </CartProvider>
+      </CartProvider>,
     );
     const decrementBtn = screen.getByRole("button", { name: /decrement/i });
     await user.click(decrementBtn);
@@ -178,7 +184,7 @@ describe("Cart Items", () => {
     render(
       <CartProvider initialItems={mockData}>
         <Cart />
-      </CartProvider>
+      </CartProvider>,
     );
     const item = screen.getByRole("listitem");
     const decrementBtn = screen.getByRole("button", { name: /decrement/i });
@@ -194,7 +200,7 @@ describe("Cart Items", () => {
     render(
       <CartProvider initialItems={mockData}>
         <Cart />
-      </CartProvider>
+      </CartProvider>,
     );
     const incrementBtn = screen.getByRole("button", { name: /increment/i });
     await user.click(incrementBtn);

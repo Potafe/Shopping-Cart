@@ -4,12 +4,8 @@ import { useCart } from "./CartContext";
 
 const Cart = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const {
-    items,
-    handleAdjustItemQuant,
-    handleRemoveItemFromCart,
-    toggleCart,
-  } = useCart();
+  const { items, handleAdjustItemQuant, handleRemoveItemFromCart, toggleCart } =
+    useCart();
 
   useEffect(() => {
     setTimeout(() => {
@@ -91,7 +87,10 @@ const Cart = () => {
 
                   <div className="flex flex-col gap-y-6">
                     <div className="flex gap-x-3 items-start">
-                      <p className="leading-4 font-medium" data-testid = "itemTitle">
+                      <p
+                        className="leading-4 font-medium"
+                        data-testid="itemTitle"
+                      >
                         {item.name}
                       </p>
                       <button
@@ -154,23 +153,27 @@ const Cart = () => {
             </div>
 
             <div>
-              <a href="#" className="py-4 px-8 font-bold rounded-full uppercase border-2 border-black shadow-[7px_8px_0px_5px_black] mb-3 w-full text-base flex justify-center gap-x-2 duration-200 hover:bg-shiny-yellow" aria-label="checkout">
+              <a
+                href="#"
+                className="py-4 px-8 font-bold rounded-full uppercase border-2 border-black shadow-[7px_8px_0px_5px_black] mb-3 w-full text-base flex justify-center gap-x-2 duration-200 hover:bg-shiny-yellow"
+                aria-label="checkout"
+              >
                 <span>CHECKOUT</span>
-                  <span>
-                    <svg
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={2}
-                      stroke="currentColor"
-                      className="w-6 h-6"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
-                      />
-                    </svg>
-                  </span>
+                <span>
+                  <svg
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2}
+                    stroke="currentColor"
+                    className="w-6 h-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
+                    />
+                  </svg>
+                </span>
               </a>
             </div>
           </div>

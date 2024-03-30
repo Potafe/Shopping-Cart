@@ -23,8 +23,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/store" element={<Store />}>
-        <Route path="/store/category/:category" element={<Store />} />	          
-        <Route index />
+          <Route path="/store/category/:category" element={<Store />} />
+          <Route index />
           <Route path="category/:category" />
         </Route>
         <Route path="/product/:id" element={<SingleProduct />} />

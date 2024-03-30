@@ -8,7 +8,10 @@ const useScrollDirection = () => {
     function getScrollDirection() {
       const currScrollY = window.scrollY;
       const direction = currScrollY > oldScrollY ? "down" : "up";
-      if (direction !== scrollDirection && Math.abs(oldScrollY - currScrollY) > 4) {
+      if (
+        direction !== scrollDirection &&
+        Math.abs(oldScrollY - currScrollY) > 4
+      ) {
         setScrollDirection(direction);
       }
 
@@ -23,6 +26,6 @@ const useScrollDirection = () => {
   });
 
   return scrollDirection;
-}
+};
 
 export default useScrollDirection;

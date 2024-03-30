@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 
 const Sidebar = ({ currentCategory, categories, onCategoryChange }) => {
-  
   const categoriesList = categories.map((c) => {
     let styles = "px-2 block rounded transition duration-200";
     styles +=
@@ -23,7 +22,7 @@ const Sidebar = ({ currentCategory, categories, onCategoryChange }) => {
         )}
       </li>
     );
-  });   
+  });
 
   return (
     <div className="w-52 shrink-0 leading-5">

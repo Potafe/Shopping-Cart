@@ -1,13 +1,11 @@
 import { useRef, useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import useScrollDirection from "./Scroller.jsx"
+import useScrollDirection from "./Scroller.jsx";
 
 const Header = ({ onOpenCart, hasImageBelow = false }) => {
-
   const [isAtTop, setIsAtTop] = useState(true);
   const scrollWatcher = useRef(null);
   const scrollDirection = useScrollDirection();
-  
 
   useEffect(() => {
     const watcher = scrollWatcher.current;
@@ -38,7 +36,7 @@ const Header = ({ onOpenCart, hasImageBelow = false }) => {
 
   return (
     <>
-    <div
+      <div
         ref={scrollWatcher}
         className="h-20 w-full absolute"
         data-scroll-anchor=""
@@ -48,9 +46,7 @@ const Header = ({ onOpenCart, hasImageBelow = false }) => {
         className={`sticky top-0 z-50 w-full flex items-center justify-between py-3 px-8 transition-all duration-300 ${headerStyles}`}
       >
         <div className="h-full">
-          <NavLink to="/">
-            FAMAZON
-          </NavLink>
+          <NavLink to="/">FAMAZON</NavLink>
         </div>
 
         <nav>

@@ -5,12 +5,11 @@ import { BrowserRouter } from "react-router-dom";
 import Header from "../Header";
 
 describe("<Header>", () => {
-
   it("should render a list of links", () => {
     render(
       <BrowserRouter>
         <Header />
-      </BrowserRouter>
+      </BrowserRouter>,
     );
 
     expect(screen.getAllByRole("link")).not.toHaveLength(0);
@@ -20,7 +19,7 @@ describe("<Header>", () => {
     render(
       <BrowserRouter>
         <Header />
-      </BrowserRouter>
+      </BrowserRouter>,
     );
     const homeLink = screen.getByRole("link", { name: /home/i });
 
@@ -32,7 +31,7 @@ describe("<Header>", () => {
     render(
       <BrowserRouter>
         <Header />
-      </BrowserRouter>
+      </BrowserRouter>,
     );
     const homeLink = screen.getByRole("link", { name: /store/i });
 
@@ -47,7 +46,7 @@ describe("<Header>", () => {
     render(
       <BrowserRouter>
         <Header onOpenCart={onOpenCartMock} />
-      </BrowserRouter>
+      </BrowserRouter>,
     );
     const cartBtn = screen.getByRole("button", { name: /open cart/i });
     await user.click(cartBtn);
