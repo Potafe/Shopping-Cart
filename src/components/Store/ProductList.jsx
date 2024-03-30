@@ -1,7 +1,15 @@
 import { Link } from "react-router-dom";
 import StarsRating from "./StarsRating";
+import { Pagination } from "../Pagination.jsx";
 
-const ProductList = ({ totalItems, items, isLoading }) => {
+const ProductList = ({
+  totalItems,
+  items,
+  isLoading,
+  currentPage,
+  totalPages,
+  onPageChange,
+}) => {
   const loadingStyle = isLoading && "opacity-30";
   return (
     <div className={`py-12 pl-10 ${loadingStyle}`}>
@@ -15,7 +23,11 @@ const ProductList = ({ totalItems, items, isLoading }) => {
               key={item.sku}
             >
               <div className="mb-5">
-                <img src={item.image} alt="" className="h-48 w-full object-contain" />
+                <img
+                  src={item.image}
+                  alt=""
+                  className="h-48 w-full object-contain"
+                />
               </div>
               <span className="text-slate-600">{item.category}</span>
               <p className="font-medium leading-4 text-sm">{item.name}</p>
@@ -29,6 +41,15 @@ const ProductList = ({ totalItems, items, isLoading }) => {
             </Link>
           );
         })}
+
+        <div>
+          <Pagination
+            currPage={currentPage}
+            totalPages={totalPages}
+            siblings={3}
+            onPageChange={onPageChange}
+          />
+        </div>
       </div>
     </div>
   );
