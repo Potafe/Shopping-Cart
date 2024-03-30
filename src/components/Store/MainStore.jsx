@@ -8,58 +8,71 @@ import ProductList from "./ProductList";
 
 const Store = () => {
   const { category } = useParams();
-  const [products, setProducts] = useState(null);
+  const [items, setItems] = useState(null);
   const [categories, setCategories] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  const currentCategoryId = category || "abcat0712000";
+
   useEffect(() => {
     (async () => {
-      const productsQuery = category
-        ? `products/category/${category}`
-        : "products";
-      const products = await fetchData(
-        `https://fakestoreapi.com/${productsQuery}`,
+      const pageSize = 18;
+      const itemsResponse = await fetchData(
+        `https://api.bestbuy.com/v1/products(categoryPath.id=${currentCategoryId})?apiKey=PGbnJ286dtgKoN2oypkGpTep&sort=customerReviewCount.desc&show=categoryPath.id,categoryPath.name,customerReviewAverage,customerReviewCount,image,name,onSale,percentSavings,regularPrice,salePrice,shortDescription,sku&pageSize=${pageSize}&format=json`
       );
 
+      console.log(itemsResponse);
+
       if (categories === null) {
-        const categoriesData = await fetchData(
-          "https://fakestoreapi.com/products/categories",
+        const categoriesRes = await fetchData(
+          `https://api.bestbuy.com/v1/categories(id=pcmcat1591132221892)?apiKey=PGbnJ286dtgKoN2oypkGpTep&format=json`
         );
+        const categoriesData = categoriesRes.categories[0].subCategories;
+        console.log(categoriesData);
         setCategories(categoriesData);
       }
-      setProducts(products);
       setIsLoading(false);
+      setItems(itemsResponse);
     })();
-  }, [category]);
+  }, [currentCategoryId]);
+  
 
   const handleCategoryChange = () => {
     setIsLoading(true);
   };
 
-  if (products === null) {
+  if (categories === null) {
     return <Loader />;
   }
 
   return (
-    products && (
-      <>
-        <div className="container max-w-screen-xl py-20 flex gap-10">
+    <>
+      <div className="h-80 bg-store-banner -mt-20 bg-no-repeat bg-cover">
+        <div className="bg-black/30 w-full h-full flex items-end">
+          <div className="container max-w-screen-xl text-right">
+            <h1 className="font-headings text-white text-6xl font-extrabold tracking-tight">
+              GAMING STORE
+            </h1>
+          </div>
+        </div>
+      </div>
+
+      <div className="relative grow">
+        <div className="container max-w-screen-xl flex relative">
           <Sidebar
-            currentCategory={category}
+            currCategory={category}
             categories={categories}
             onCategoryChange={handleCategoryChange}
           />
-          <div>
-            <h1 className="text-5xl mb-8 tracking-tight">
-              Unlock <span className="font-extrabold">Innovation</span>, Shop
-              Your Future Today!
-            </h1>
-            <ProductList isLoading={isLoading} products={products} />
-          </div>
+          <ProductList
+            isLoading={isLoading}
+            totalItems={items.total}
+            items={items.products}
+          />
         </div>
-      </>
-    )
-  );
+      </div>
+    </>
+    );
 };
 
 export default Store;

@@ -15,8 +15,8 @@ function App() {
       <Routes>
         <Route path="/*" element={<Header onOpenCart={toggleCart} />} />
         <Route
-          path="/store"
-          element={<Header onOpenCart={toggleCart} isAboveBanner={true} />}
+          path="/store/*"
+          element={<Header onOpenCart={toggleCart} hasImageBelow={true} />}
         />
       </Routes>
 
@@ -25,7 +25,7 @@ function App() {
         <Route path="/store" element={<Store />}>
         <Route path="/store/category/:category" element={<Store />} />	          
         <Route index />
-          <Route path="/store/category/:category" />
+          <Route path="category/:category" />
         </Route>
         <Route path="/product/:id" element={<SingleProduct />} />
       </Routes>

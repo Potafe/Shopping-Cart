@@ -1,6 +1,30 @@
 import { Link } from "react-router-dom";
 
 const Sidebar = ({ currentCategory, categories, onCategoryChange }) => {
+  
+  const categoriesList = categories.map((c) => {
+    let styles = "px-2 block rounded transition duration-200";
+    styles +=
+      currentCategory === c.id
+        ? " font-semibold bg-gray-800 text-white py-2"
+        : " font-medium hover:bg-gray-200 py-1";
+    return (
+      <li key={c.id} className="mb-1">
+        {currentCategory === c.id ? (
+          <span className={styles}>{c.name}</span>
+        ) : (
+          <Link
+            to={`/shop/category/${c.id}`}
+            className={styles}
+            onClick={onCategoryChange}
+          >
+            {c.name}
+          </Link>
+        )}
+      </li>
+    );
+  });   
+
   return (
     <div className="w-52 shrink-0 leading-5">
       {/* Sidebar */}
@@ -27,17 +51,7 @@ const Sidebar = ({ currentCategory, categories, onCategoryChange }) => {
           Clear Category
         </Link>
       )}
-      <ul>
-        {categories.map((cat, index) => {
-          return (
-            <li className="mb-2 capitalize" key={index}>
-              <Link to={`/store/category/${cat}`} onClick={onCategoryChange}>
-                {cat}
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
+      <ul>{categoriesList}</ul>
     </div>
   );
 };
