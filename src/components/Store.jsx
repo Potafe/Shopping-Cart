@@ -1,45 +1,71 @@
 import { useState } from "react";
 import Loader from "./Loader";
 import { useEffect } from "react";
-
-async function getProducts() {
-  const response = await fetch("https://fakestoreapi.com/products");
-  const data = await response.json();
-  return data;
-}
+import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { fetchData } from "./utils";
 
 const Store = () => {
-  const [data, setData] = useState(null);
+  const { category } = useParams();
+  const [products, setProducts] = useState(null);
+  const [categories, setCategories] = useState(null);
 
   useEffect(() => {
     (async () => {
-      const products = await getProducts();
-      setData(products);
-    })();
-  }, []);
+      const productsQuery = category
+        ? `products/category/${category}`
+        : "products";
+      const products = await fetchData(
+        `https://fakestoreapi.com/${productsQuery}`,
+      );
 
-  if (data === null) {
+      if (categories === null) {
+        const categoriesData = await fetch(
+          "https://fakestoreapi.com/products/categories",
+        );
+        setCategories(categoriesData);
+      }
+      setProducts(products);
+    })();
+  }, [category]);
+
+  if (products === null) {
     return <Loader />;
   } else {
     return (
-      data && (
+      products && (
         <>
-          <div className="container max-w-screen-xl py-20">
-            <h1 className="text-5xl mb-8 tracking light">
-              Unlock <span className="font-extrabold">Innovation</span>, Shop
-              Your Future Today!
-            </h1>
-            <div className="grid grid-cols-3 gap-5">
-              {data.map((product) => {
-                console.table(product);
-                return (
-                  <div className="flex flex-col p-5 gap-y-1" key={product.id}>
-                    <span className="text-slate-600">{product.category}</span>
-                    <p className="font-semibold leading-5">{product.title}</p>
-                    <span className="font-medium pt-3">RS{product.price}</span>
-                  </div>
-                );
-              })}
+          <div className="container max-w-screen-xl py-20 flex gap-10">
+            <div className="w-52 shrink-0 leading-5">
+              {/* Sidebar */}
+              <h2 className="text-xl font-black pb-5">Categories</h2>
+              <ul>
+                {categories.map((cat, index) => {
+                  return (
+                    <li className="pb-1" key={index}>
+                      <Link to={`/shop/category/${cat}`}>{cat}</Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+
+            <div>
+              <h1 className="text-5xl mb-8 tracking-tight">
+                World-class{" "}
+                <span className="font-extrabold">composable businesses.</span>
+              </h1>
+              <div className="grid grid-cols-3 gap-5">
+                {products.map((product) => {
+                  return (
+                    <div className="flex flex-col p-5 gap-y-1" key={product.id}>
+                      <span className="text-slate-600">{product.category}</span>
+                      <p className="font-semibold leading-5">{product.title}</p>
+                      <span className="font-medium pt-3">${product.price}</span>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </>
@@ -47,5 +73,4 @@ const Store = () => {
     );
   }
 };
-
 export default Store;
