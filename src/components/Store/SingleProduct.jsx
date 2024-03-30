@@ -1,13 +1,13 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchData } from "../utils";
 import Loader from "../Loader";
-import { CartContext } from "../../App";
+import { useCart } from "../Cart/CartContext";
 
 const SingleProduct = () => {
+    const cartContext = useCart();
   const [data, setData] = useState(null);
   const { id } = useParams();
-  const onAddToCart = useContext(CartContext);
 
   useEffect(() => {
     (async () => {
@@ -26,7 +26,7 @@ const SingleProduct = () => {
     <>
       <h1>{data.title}</h1>
       <p>{data.description}</p>
-      <button type="button" className="py-3 px-5 bg-red-700 text-white" onClick={() => onAddToCart(data)}>
+      <button type="button" className="py-3 px-5 bg-red-700 text-white" onClick={() => cartContext.handleAddItemToCart(data)}>
         Add to Cart
       </button>
     </>
