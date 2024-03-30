@@ -12,7 +12,6 @@ const Store = () => {
   const [categories, setCategories] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-
   useEffect(() => {
     (async () => {
       const productsQuery = category
@@ -32,8 +31,7 @@ const Store = () => {
       setIsLoading(false);
     })();
   }, [category]);
- 
-    
+
   const handleCategoryChange = () => {
     setIsLoading(true);
   };
@@ -42,22 +40,26 @@ const Store = () => {
     return <Loader />;
   }
 
-    return (
-      products && (
-        <>
-          <div className="container max-w-screen-xl py-20 flex gap-10">
-            <Sidebar currentCategory = {category} categories = {categories} onCategoryChange = {handleCategoryChange} />
-            <div>
-              <h1 className="text-5xl mb-8 tracking-tight">
-                Unlock <span className="font-extrabold">Innovation</span>, Shop
-                Your Future Today!
-              </h1>
-              <ProductList isLoading = {isLoading} products = {products} />
-            </div>
+  return (
+    products && (
+      <>
+        <div className="container max-w-screen-xl py-20 flex gap-10">
+          <Sidebar
+            currentCategory={category}
+            categories={categories}
+            onCategoryChange={handleCategoryChange}
+          />
+          <div>
+            <h1 className="text-5xl mb-8 tracking-tight">
+              Unlock <span className="font-extrabold">Innovation</span>, Shop
+              Your Future Today!
+            </h1>
+            <ProductList isLoading={isLoading} products={products} />
           </div>
-        </>
-      )
-    );
-  };
+        </div>
+      </>
+    )
+  );
+};
 
 export default Store;
