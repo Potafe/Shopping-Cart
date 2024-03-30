@@ -5,7 +5,7 @@ import Loader from "../Loader";
 import { useCart } from "../Cart/CartContext";
 
 const SingleProduct = () => {
-    const cartContext = useCart();
+  const cartContext = useCart();
   const [data, setData] = useState(null);
   const { id } = useParams();
 
@@ -26,7 +26,11 @@ const SingleProduct = () => {
     <>
       <h1>{data.title}</h1>
       <p>{data.description}</p>
-      <button type="button" className="py-3 px-5 bg-red-700 text-white" onClick={() => cartContext.handleAddItemToCart(data)}>
+      <button
+        type="button"
+        className="py-3 px-5 bg-red-700 text-white"
+        onClick={() => cartContext.handleAddItemToCart(data)}
+      >
         Add to Cart
       </button>
     </>

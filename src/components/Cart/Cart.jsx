@@ -1,7 +1,15 @@
 import { useEffect, useState } from "react";
+import ProductQuantity from "./ProductQuantity";
+import { useCart } from "./CartContext";
 
-const Cart = ({ onClose, onDeleteItem, items, onAdjustQuant }) => {
+const Cart = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const {
+    cartData,
+    handleAdjustProductQuant,
+    handleRemoveItemFromCart,
+    toggleCart,
+  } = useCart();
 
   useEffect(() => {
     setTimeout(() => {
@@ -24,11 +32,11 @@ const Cart = ({ onClose, onDeleteItem, items, onAdjustQuant }) => {
   const handleCloseTransition = () => {
     setIsVisible(false);
     setTimeout(() => {
-      onClose();
+      toggleCart();
     }, TRANSIT_DURATION);
   };
 
-  const subtotal = items
+  const subtotal = cartData
     .reduce((total, curr) => {
       total += curr.price * curr.quantity;
       return total;
@@ -66,7 +74,7 @@ const Cart = ({ onClose, onDeleteItem, items, onAdjustQuant }) => {
 
           <div>
             <ul>
-              {items.map((item) => (
+              {cartData.map((item) => (
                 <li key={item.id} className="flex gap-8 mb-8">
                   <div className="shrink-0 bg-white">
                     <img
@@ -79,13 +87,13 @@ const Cart = ({ onClose, onDeleteItem, items, onAdjustQuant }) => {
                     <div className="flex gap-x-3 items-start">
                       <p className="leading-4 font-medium">
                         {item.title}
-                        Luminex ProXcel 5000X
-                        Display: 15.6 FHD IPS display with 144Hz refresh rate
+                        Luminex ProXcel 5000X Display: 15.6 FHD IPS display with
+                        144Hz refresh rate
                       </p>
                       <button
                         type="button"
                         className="stroke-slate-500"
-                        onClick={() => onDeleteItem(item.id)}
+                        onClick={() => handleRemoveItemFromCart(item.id)}
                       >
                         <svg
                           fill="none"
@@ -103,51 +111,26 @@ const Cart = ({ onClose, onDeleteItem, items, onAdjustQuant }) => {
                     </div>
 
                     <div className="flex justify-between items-end">
-                      <p className="font-bold text-lg leading-5">${item.price}</p>
-                      <div className="flex gap-x-2 text-base font-semibold">
-                        <button
-                          type="button"
-                          className="bg-slate-200 w-6 h-6 rounded-sm stroke-slate-600 flex justify-center items-center p-1"
-                          onClick={() =>
-                            onAdjustQuant(item.id, item.quantity, "decrement")
-                          }
-                        >
-                          <svg
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth={2}
-                            className="w-5 h-5"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M19.5 12h-15"
-                            />
-                          </svg>
-                        </button>
-                        <span className="min-w-[30px] text-center">{item.quantity}</span>
-                        <button
-                          type="button"
-                          className="bg-slate-200 w-6 h-6 rounded-sm text-slate-600 flex justify-center items-center p-1"
-                          onClick={() =>
-                            onAdjustQuant(item.id, item.quantity, "increment")
-                          }
-                        >
-                          <svg
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth={2}
-                            stroke="currentColor"
-                            className="w-5 h-5"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M12 4.5v15m7.5-7.5h-15"
-                            />
-                          </svg>
-                        </button>
-                      </div>
+                      <p className="font-bold text-lg leading-5">
+                        ${item.price}
+                      </p>
+                      <ProductQuantity
+                        quantity={item.quantity}
+                        onDecrement={() =>
+                          handleAdjustProductQuant(
+                            item.id,
+                            item.quantity,
+                            "decrement",
+                          )
+                        }
+                        onIncrement={() =>
+                          handleAdjustProductQuant(
+                            item.id,
+                            item.quantity,
+                            "increment",
+                          )
+                        }
+                      />
                     </div>
                   </div>
                 </li>
