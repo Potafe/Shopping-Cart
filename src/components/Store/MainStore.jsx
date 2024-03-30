@@ -49,8 +49,8 @@ const Store = () => {
     <>
       <div className="h-80 bg-store-banner -mt-20 bg-no-repeat bg-cover">
         <div className="bg-black/30 w-full h-full flex items-end">
-          <div className="container max-w-screen-xl text-right">
-            <h1 className="font-headings text-white text-6xl font-extrabold tracking-tight">
+          <div className="container max-w-[1400px] mx-auto text-right">
+            <h1 className="font-headings text-white text-6xl font-extrabold tracking-tight text-right">
               GAMING STORE
             </h1>
           </div>
