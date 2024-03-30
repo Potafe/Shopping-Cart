@@ -6,15 +6,15 @@ function useCart() {
   return useContext(CartContext);
 }
 
-function CartProvider({ children }) {
+function CartProvider({ children, initialItems }) {
   const [isCartActive, setIsCartActive] = useState(false);
-  const [cartData, setCartData] = useState([]);
+  const [items, setItems] = useState(initialItems ?? []);
 
   const toggleCart = () => setIsCartActive(!isCartActive);
 
   const handleAddItemToCart = (newItem) => {
     let isItemInCart = false;
-    const modifiedData = cartData.map((item) => {
+    const modifiedData = items.map((item) => {
       if (item.id === newItem.id) {
         isItemInCart = true;
         item.quantity += 1;
@@ -22,36 +22,36 @@ function CartProvider({ children }) {
       return item;
     });
 
-    if (isItemInCart) setCartData(modifiedData);
+    if (isItemInCart) setItems(modifiedData);
     else {
       newItem.quantity = 1;
-      setCartData([newItem, ...cartData]);
+      setItems([newItem, ...items]);
     }
   };
 
   const handleRemoveItemFromCart = (id) =>
-    setCartData(cartData.filter((item) => item.id !== id));
+    setItems(items.filter((item) => item.id !== id));
 
-  const handleAdjustProductQuant = (id, quant, action) => {
+  const handleAdjustItemQuant = (id, quant, action) => {
     if (quant === 1 && action === "decrement") {
       handleRemoveItemFromCart(id);
       return;
     }
 
-    const updateData = cartData.map((item) => {
+    const updateData = items.map((item) => {
       if (item.id === id) item.quantity += action === "increment" ? 1 : -1;
       return item;
     });
 
-    setCartData(updateData);
+    setItems(updateData);
   };
 
   const providerValues = {
     isCartActive,
     toggleCart,
-    cartData,
+    items,
     handleAddItemToCart,
-    handleAdjustProductQuant,
+    handleAdjustItemQuant,
     handleRemoveItemFromCart,
   };
 

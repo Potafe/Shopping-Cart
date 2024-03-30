@@ -5,8 +5,8 @@ import { useCart } from "./CartContext";
 const Cart = () => {
   const [isVisible, setIsVisible] = useState(false);
   const {
-    cartData,
-    handleAdjustProductQuant,
+    items,
+    handleAdjustItemQuant,
     handleRemoveItemFromCart,
     toggleCart,
   } = useCart();
@@ -26,7 +26,7 @@ const Cart = () => {
     classes.cart = "translate-x-0";
     classes.background = "bg-black/70 backdrop-blur-sm";
   } else {
-    classes.cart = "translate-x-full";
+    classes.cart = "translate-x-full invisible";
   }
 
   const handleCloseTransition = () => {
@@ -36,7 +36,7 @@ const Cart = () => {
     }, TRANSIT_DURATION);
   };
 
-  const subtotal = cartData
+  const subtotal = items
     .reduce((total, curr) => {
       total += curr.price * curr.quantity;
       return total;
@@ -46,7 +46,7 @@ const Cart = () => {
   return (
     <>
       <div
-        className={`z-10 fixed bg-white h-full w-full leading-5 right-0 overflow-y-auto text-sm max-w-xl flex flex-col py-10 ${transitionClasses} ${classes.cart}`}
+        className={`z-10 fixed bg-white h-full w-full leading-5 right-0 overflow-y-auto text-sm max-w-xl flex flex-col py-10 ${transitionClasses} ${classes.cart}`} data-testid = "cart"
       >
         <div className="px-16 grow">
           <div className="mb-12 flex justify-between">
@@ -55,7 +55,13 @@ const Cart = () => {
                 Cart
               </span>
             </div>
-            <span className="cursor-pointer" onClick={handleCloseTransition}>
+            <button
+              type="button"
+              className="cursor-pointer"
+              onClick={handleCloseTransition}
+              aria-label="close"
+              title="close"
+            >
               <svg
                 fill="none"
                 viewBox="0 0 24 24"
@@ -69,12 +75,12 @@ const Cart = () => {
                   d="M6 18L18 6M6 6l12 12"
                 />
               </svg>
-            </span>
+            </button>
           </div>
 
           <div>
             <ul>
-              {cartData.map((item) => (
+              {items.map((item) => (
                 <li key={item.id} className="flex gap-8 mb-8">
                   <div className="shrink-0 bg-white">
                     <img
@@ -85,7 +91,7 @@ const Cart = () => {
 
                   <div className="flex flex-col gap-y-6">
                     <div className="flex gap-x-3 items-start">
-                      <p className="leading-4 font-medium">
+                      <p className="leading-4 font-medium" data-testid = "itemTitle">
                         {item.title}
                         Luminex ProXcel 5000X Display: 15.6 FHD IPS display with
                         144Hz refresh rate
@@ -94,6 +100,7 @@ const Cart = () => {
                         type="button"
                         className="stroke-slate-500"
                         onClick={() => handleRemoveItemFromCart(item.id)}
+                        aria-label="Remove item"
                       >
                         <svg
                           fill="none"
@@ -117,14 +124,14 @@ const Cart = () => {
                       <ProductQuantity
                         quantity={item.quantity}
                         onDecrement={() =>
-                          handleAdjustProductQuant(
+                          handleAdjustItemQuant(
                             item.id,
                             item.quantity,
                             "decrement",
                           )
                         }
                         onIncrement={() =>
-                          handleAdjustProductQuant(
+                          handleAdjustItemQuant(
                             item.id,
                             item.quantity,
                             "increment",
@@ -143,31 +150,30 @@ const Cart = () => {
           <div className="px-16">
             <div className="text-base flex justify-between pb-6">
               <span className="font-semibold">Subtotal:</span>
-              <span className="font-bold text-lg">$ {subtotal}</span>
+              <span className="font-bold text-lg" data-testid="subtotal">
+                $ {subtotal}
+              </span>
             </div>
 
             <div>
-              <button
-                type="button"
-                className="py-4 px-8 font-bold rounded-full uppercase border-2 border-black shadow-[7px_8px_0px_5px_black] mb-3 w-full text-base flex justify-center gap-x-2 duration-200 hover:bg-shiny-yellow"
-              >
+              <a href="#" className="py-4 px-8 font-bold rounded-full uppercase border-2 border-black shadow-[7px_8px_0px_5px_black] mb-3 w-full text-base flex justify-center gap-x-2 duration-200 hover:bg-shiny-yellow" aria-label="checkout">
                 <span>CHECKOUT</span>
-                <span>
-                  <svg
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={2}
-                    stroke="currentColor"
-                    className="w-6 h-6"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
-                    />
-                  </svg>
-                </span>
-              </button>
+                  <span>
+                    <svg
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={2}
+                      stroke="currentColor"
+                      className="w-6 h-6"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
+                      />
+                    </svg>
+                  </span>
+              </a>
             </div>
           </div>
         </div>

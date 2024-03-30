@@ -5,6 +5,8 @@ const ProductQuantity = ({ quantity, onDecrement, onIncrement }) => {
         type="button"
         className="bg-slate-200 w-6 h-6 rounded-sm stroke-slate-600 flex justify-center items-center p-1"
         onClick={onDecrement}
+        aria-label="decrement"
+        title="decrement"
       >
         <svg
           fill="none"
@@ -22,6 +24,8 @@ const ProductQuantity = ({ quantity, onDecrement, onIncrement }) => {
         type="button"
         className="bg-slate-200 w-6 h-6 rounded-sm text-slate-600 flex justify-center items-center p-1"
         onClick={onIncrement}
+        aria-label="increment"
+        title="increment"
       >
         <svg
           fill="none"
